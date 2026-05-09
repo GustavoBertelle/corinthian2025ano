@@ -121,7 +121,7 @@ body{
     cursor: pointer;
 }
 
-.btn-login{
+.btn-cadastro{
     width: 100%;
     padding: 14px;
     margin-top: 20px;
@@ -134,9 +134,26 @@ body{
     transition: 0.3s;
 }
 
-.btn-login:hover{
+.btn-cadastro :hover{
     background: #ccc;
 }
+.btn_login{
+       width: 100%;
+
+
+    color: #ffffff;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-login{
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.plog{
+    color:  #a5a5a5;
+}
+
 p {
     margin-top: 10px;
     font-size: 13px;
@@ -155,4 +172,12 @@ p {
 .media {
     color: #ffffffa4;
     font-size: 13px
+}
+.textfield span {
+    display: block;
+    margin-top: 5px;
+}
+#msg_senha {
+    display: block;
+    margin-top: 5px;
 }

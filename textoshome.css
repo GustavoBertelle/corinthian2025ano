@@ -1,0 +1,275 @@
+/* ================= GERAL ================= */
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --main-color: #c4a47c;
+    --black: #0d0d0d;
+    --bg: #010103;
+    --white: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+}
+
+/* ================= SEÇÕES ================= */
+.historia p,
+.contexto p,
+.copa p {
+    max-width: 700px;
+    text-align: justify;
+}
+
+/* ================= TITULOS ================= */
+section h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+/* ================= TEXTOS ================= */
+section p {
+    font-size: 16px;
+    margin: 0 auto 20px;
+    text-indent: 30px;
+    line-height: 1.7;
+}
+section p2{
+     font-size: 16px;
+    margin: 0 auto 20px;
+
+    line-height: 1.7;
+}
+
+/* ================= FUNDOS ================= */
+.historia {
+    background: #080405;
+}
+
+.contexto {
+    background: #060404;
+}
+
+.paulista {
+    background: #040303;
+}
+
+.copa {
+    background: #020202;
+}
+
+/* ================= DETAILS ================= */
+details {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+summary {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--main-color);
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* ================= FLEX PADRÃO (TEXTO + IMAGEM) ================= */
+.txt_corXpa,
+.txt_eliminacao-pre {
+    display: flex;
+    align-items: stretch; /* mesma altura */
+    gap: 30px;
+}
+
+/* texto ocupa metade */
+.txt_corXpa p,
+.txt_eliminacao-pre p {
+    width: 50%;
+    margin: 0;
+    text-align: justify;
+}
+.txt_hugoxcassio {
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+}
+.txt_hugoxcassio p{
+    width: 70%;
+    margin: 0;
+    text-align: justify;
+}
+.txt_hugoxgabigol,
+.txt_gui-negao,
+.txt_drible-breno,
+.txt_chance,
+.txt_vaidebet{
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+}
+.txt_hugoxgabigol .p2,
+.txt_gui-negao p,
+.txt_drible-breno p,
+.txt_davixgolias p,
+.txt_chance p,
+.txt_vaidebet p {
+    width: 50%;
+    margin: 0;
+    text-align: justify;
+}
+.txt_cabeca{
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+}
+.txt_cabeca p{
+    width: 50%;
+    margin: 0;
+    text-align: justify;
+}
+.txt_davixgolias{
+        display: flex;
+    align-items: stretch;
+    gap: 30px;
+    position: relative;
+}
+.txt_Memphins{
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+}
+.txt_Memphins .p2{
+    width: 50%;
+    margin: 0;
+    text-align: justify;
+}
+
+/* ================= IMAGENS ================= */
+.chut,
+.eliminacao-pre {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+}
+.redxcor {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.torcida-final {
+    width: 300px;
+    height: 330px;
+    flex-shrink: 0;
+}
+
+.defesa-final {
+    width: 350px;
+    height: auto;
+    flex-shrink: 0;
+}
+.chance{
+        width: 300px;
+    height: auto;
+    flex-shrink: 0;
+}
+.cabeca{
+    width: 300px;
+    height: auto;
+    flex-shrink: 0;
+
+}
+.vaidebet{
+    width: 350px;
+    height: auto;
+    flex-shrink: 0; /*encolhe o item para caber*/
+}
+.davixgolias{
+    width: 200px;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateX(-50px);
+}
+.Memphins{
+    width: 350px;
+    height: auto;
+    flex-shrink: 0; 
+}
+.drible-breno{
+    width: 350px;
+    height: 220px;
+    flex-shrink: 0;
+}
+.gui-negao{
+    width: 350px;
+    height: auto;
+    flex-shrink: 0;
+}
+.hugoxcassio{
+    width: 35%;
+    height: auto;
+    object-fit: cover;/*distorce a imagem para caber no determinado lugar*/
+}
+.hugoxgabigol{
+     width: 350px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+/* ================= IMAGENS CENTRALIZADAS ================= */
+.imagens-historia {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.fundadores {
+    width: 430px;
+}
+
+.pElenco {
+    width: 460px;
+}
+.campeao-copa,
+.semi-paulista,
+.titulo-paulista {
+    width: 600px;
+    display: block;
+    margin: 20px auto;
+}
+
+.titulo-secao {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #fff; 
+    font-size: 24px;
+    margin: 40px 0;
+}
+/* ================= Titulo do paragráfo ================= */
+.titulo-secao::before,
+.titulo-secao::after {
+    content: "";
+    flex: 1;
+    border-bottom: 2px solid #c4a47c;
+}
+
+.titulo-secao::before {
+    margin-right: 15px;
+}
+
+.titulo-secao::after {
+    margin-left: 15px;
+}

@@ -5,14 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="home.css">
 </head>
+<header class="header">
+    <div class="container">
+        <a href="#" class="logo">
+            <img src="imgs/Logo_cor_branca.png" alt="logo">
+        </a>
+
+        <nav class="navbar">
+            <a href="home.html">Home</a>
+            <a href="#hist">História</a>
+            <a href="#gols">Top 10° Gols</a>
+            <a href="#mundi">Mundial</a>
+            <a href="#quiz">Quiz</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </div>
+</header>
 <body>
 
 <div class="main-login">
 
     <div class="left-login">
         
-        <img src="torcida.jpg" class="left-image" alt="torcida">
+        <img src="imgs/torcida.jpg" class="left-image" alt="torcida">
     </div>
 
     <div class="right-login">
@@ -20,31 +37,45 @@
 
             <div class="titulo">
 
-                <img src="Logo_cor_branca.png" class="escudo">
+                <img src="imgs/Logo_cor_branca.png" class="escudo">
             <h1>LOGIN</h1>
-            <img src="Logo_cor_branca.png" class="escudo">
+            <img src="imgs/Logo_cor_branca.png" class="escudo">
                 </div>
 
-            <div class="textfield">
-                <label for="usuario">Email</label>
-                <input type="text" id="ipt_usuario" name="usuario" placeholder="@Email">
+   <div class="textfield">
+                <label for="email">Email</label>
+                <input type="text" id="ipt_email" name="email" placeholder="@Email">
+                <span id="msg_email"></span>
             </div>
 
     <div class="textfield">
     <label for="senha">Senha</label>
     
     <div class="senha-container">
+
     <input type="password" id="ipt_senha" name="senha" placeholder="Senha">
-    <img src="olho_fechado.png" id="icone_olho" class="olho" onclick="olhoSenha()">
+
+    <img src="imgs/olho_fechado.png" id="icone_olho" class="olho" onclick="olhoSenha()">
+
     </div>
+    </div>
+        <span id="msg_senha"></span>
+
+       <div class="textfield">
     </div>
 
-            <button class="btn-login">Login</button>
+
+            <button onclick="login()" class="btn-login">Login</button>
+            <br>
+                        <p class="pcad">
+                Ainda não possui cadastro?
+                <a href="cadastro.html" id="btn_cadastro" class="btn_cadastro">Cadastro</a>
+            </p>
         </div>
     </div>
 
 </div>
-
+<div id="msg"></div>
 </body>
 </html>
 <script>
@@ -55,10 +86,127 @@ function olhoSenha() {
 
     if (input.type === "password") {
         input.type = "text";
-        icone.src = "olho_aberto.png";
+        icone.src = "imgs/olho_aberto.png";
     } else {
         input.type = "password";
-        icone.src = "olho_fechado.png";
+        icone.src = "imgs/olho_fechado.png";
     }
 }
+
+    let listaLogin = ['corinthians@gmail.com'];
+    let listaSenha = ['cor@123'];
+    let tentativa = 4;
+
+    function login() {
+
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+        let contador = 0;
+        let erro = false;
+
+        msg_email.innerHTML = "";
+        msg_senha.innerHTML = "";
+        msg.innerHTML = "";
+
+        if (!email.includes('@')) {
+            msg_email.innerHTML = "✖ Email inválido";
+            erro = true;
+        }
+
+        if (senha.length < 6) {
+            msg_senha.innerHTML = "✖ Senha inválida";
+            erro = true;
+        }
+        if (!senha.includes('@') &&
+            !senha.includes('#') &&
+            !senha.includes('%') &&
+            !senha.includes('&') &&
+            !senha.includes('$')){
+            erro = true;
+                }
+
+            if (listaSenha[0] != senha) {
+                if (tentativa > 1) {
+                    while (contador < 1) {
+                        tentativa--;
+                        contador++
+                        alert(`Errouuu. Restam ${tentativa} chances!`)
+                    }
+                } else {
+                    alert('Você errou a senha 3 vezes, tente novamente mais tarde!')
+                }
+            } else {
+                alert("Login realizado com sucesso!");
+            }
+        }
+    
+  /*aguardar();
+
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    setTimeout(function () {
+                        window.location = "./dashboard/cards.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+*/
+
 </script>
