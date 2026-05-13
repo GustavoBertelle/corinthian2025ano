@@ -1,0 +1,124 @@
+.title h1{
+    font-size:70px;
+    line-height:65px;
+    font-weight:900;
+}
+
+.title span{
+    color:#8f8f8f;
+}
+
+.title p{
+    margin-top:20px;
+    color:#a8a8a8;
+    font-size:20px;
+    max-width:700px;
+}
+
+  .banner{
+      position:absolute;
+      inset:0; /* junto com o absolute ele serve para o elemento ocupar toda a borda pai a borda pai é como se fosse a 'principal' ou seja vai ocupar a tela inteira ou a div*/
+      background:none;
+      background-size:cover; /* O cover garante que a imagem vai ocupar qualquer espaço vazio */
+      background-position:center;
+      filter: grayscale(100%);
+      z-index:-1; /* Deixa o conteudo atrás do conteúdo principal*/
+    }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:25px;
+}
+
+/* CARD */
+
+.card{
+    background:rgba(10,10,10,0.92);
+    border:1px solid #202020;
+    border-radius:24px;
+    overflow:hidden;/*Esconde qualquer conteúdo que ultrapasse o tamanho do elemento.*/
+
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#fff;
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    filter:grayscale(100%);
+}
+
+.content{
+    padding:25px;
+}
+
+.position{
+    font-size:18px;
+    color:#9c9c9c;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.content h2{
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.content p{
+    color:#a8a8a8;
+    line-height:1.5;
+    margin-bottom:25px;
+}
+
+.content button{
+    width:100%;
+    padding:16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#fff;
+    color:#000;
+
+    font-size:16px;
+    font-weight:800;
+
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.content button:hover{
+    background:#d4d4d4;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+    }
+
+    .main{
+        margin-left:0;
+        padding:25px;
+    }
+
+    .title h1{
+        font-size:45px;
+        line-height:45px;
+    }
+
+}

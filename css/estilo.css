@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --tamanho-header: 80px;
+  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-footer: 65px;
+
+  --bg: #000;
+  --card: #111;
+  --card-2: #1a1a1a;
+  --text: #fff;
+  --muted: #bdbdbd;
+  --border: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Barlow', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* CONTAINER */
+
+.container {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+
+/* HEADER */
+
+.header {
+  height: var(--tamanho-header);
+  border-bottom: 2px solid var(--border);
+  background-color: #0d0d0d;
+}
+
+.header .container {
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.header a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.agora {
+  font-weight: 800;
+}
+
+.navbar {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: var(--text);
+}
+
+.titulo {
+  color: #fff;
+  width: fit-content;
+  font-weight: 700;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+/* BANNER */
+
+.banner {
+  height: var(--tamanho-banner);
+  color: white;
+  background: url('../assets/imgs/bg-jelly-fish-para-home.png') no-repeat center/cover;
+  filter: grayscale(100%);
+}
+
+.banner .container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.banner .container p {
+  width: 50%;
+  margin: 0;
+  font-size: 36px;
+}
+
+.banner .container span {
+  font-weight: 800;
+}
+
+/* SOCIAL */
+
+.social {
+  background-color: #111;
+  display: flex;
+}
+
+.social .container {
+  justify-content: center;
+}
+
+.social .container .boxes {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box img {
+  width: 170px;
+  filter: grayscale(100%);
+}
+
+.social p {
+  text-align: center;
+  color: var(--muted);
+}
+
+/* FOOTER */
+
+.footer {
+  background-color: #111;
+  height: 150px;
+  color: white;
+  display: flex;
+  font-size: 15px;
+  border-top: 2px solid var(--border);
+}
+
+.footer .container {
+  justify-content: center;
+  text-align: center;
+}
+
+.footer .container .version {
+  font-size: 12px;
+}
+
+/* LOGIN */
+
+.login {
+  height: var(--tamanho-login);
+  background: url('../assets/imgs/bg-jelly-fish-para-home.png') no-repeat center/cover;
+  filter: grayscale(100%);
+}
+
+.login .container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.card {
+  width: 50%;
+  background-color: var(--card);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+  flex-direction: column;
+  padding: 20px 0;
+  border: 2px solid var(--border);
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+/* FORMULÁRIO */
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.formulario span,
+.formulario .tipo_campo {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+
+input,
+.formulario select {
+  border: 2px solid white;
+  background-color: #0f0f0f;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.formulario select {
+  height: 42px;
+}
+
+/* BOTÕES */
+
+.botao,
+.btn {
+  cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  background-color: black;
+  padding: 10px 15px;
+  width: 140px;
+  align-self: center;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.botao:hover,
+.btn:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* LOADING */
+
+.loading-div {
+  width: 50px;
+  margin: auto;
+  display: none;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
+  filter: grayscale(100%);
+}
+
+/* ALERTA ERRO */
+
+.alerta_erro {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card_erro {
+  display: none;
+  background-color: #111;
+  color: white;
+  width: 230px;
+  position: fixed;
+  border-radius: 10px;
+  border: 2px solid white;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+/* SIMULADOR */
+
+.simulador {
+  color: white;
+}
+
+.simulador .container {
+  flex-direction: column;
+  overflow: scroll;
+  height: var(--tamanho-simulador);
+}
+
+/* ALERTA */
+
+#alerta {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.mensagem-alarme {
+  background-color: #111;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 300px;
+  height: 80px;
+  margin: 10px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+}
+
+.mensagem-alarme h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.mensagem-alarme .informacao {
+  width: 66%;
+}
+
+.alarme-sino {
+  width: 48px;
+  height: 48px;
+  animation-name: bell;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/1157/1157000.png');
+  background-size: cover;
+  filter: grayscale(100%);
+}
+
+@keyframes bell {
+  0% { transform: rotate(25deg); }
+  25% { transform: rotate(-25deg); }
+  50% { transform: rotate(25deg); }
+  75% { transform: rotate(-25deg); }
+  100% { transform: rotate(25deg); }
+}
+
+/* MENU LATERAL */
+
+.header-left {
+  background: linear-gradient(180deg, #111 0%, #1b1b1b 100%);
+  border-right: 2px solid white;
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 320px;
+  min-height: 100vh;
+
+  padding-top: 30px;
+}
+
+.header-left h1 {
+  color: white;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.hello h3 {
+  color: #cfcfcf;
+  margin-bottom: 60px;
+}
+
+#b_usuario {
+  color: white;
+}
+
+.btn-nav,
+.btn-nav-white,
+.btn-logout {
+  width: 180px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+
+  margin-bottom: 35px;
+
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-nav {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.btn-nav h3 {
+  color: black;
+}
+
+.btn-nav-white {
+  background-color: black;
+  border: 2px solid white;
+}
+
+.btn-nav-white a {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-nav-white:hover,
+.btn-logout:hover {
+  background-color: white;
+  transform: scale(1.05);
+}
+
+.btn-nav-white:hover h3,
+.btn-nav-white:hover a,
+.btn-logout:hover h3 {
+  color: black;
+}
+
+.btn-logout {
+  margin-top: 40px;
+  background-color: black;
+  border: 2px solid white;
+}
+
+.btn-logout h3 {
+  color: white;
+}

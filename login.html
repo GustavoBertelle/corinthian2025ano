@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login</title>
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="home.css">
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
+
+<body>
+
 <header class="header">
     <div class="container">
         <a href="#" class="logo">
@@ -14,10 +23,10 @@
         </a>
 
         <nav class="navbar">
-            <a href="home.html">Home</a>
+            <a href="index.html">Home</a>
             <a href="#hist">História</a>
             <a href="#gols">Top 10° Gols</a>
-            <a href="#mundi">Mundial</a>
+            <a href="mundial.html">Mundial</a>
             <a href="#quiz">Quiz</a>
             <a href="login.html">Login</a>
         </nav>
@@ -75,9 +84,12 @@
     </div>
 
 </div>
-<div id="msg"></div>
+<div id="msg">
+
+</div>
 </body>
 </html>
+
 <script>
 
 function olhoSenha() {
@@ -93,120 +105,71 @@ function olhoSenha() {
     }
 }
 
-    let listaLogin = ['corinthians@gmail.com'];
-    let listaSenha = ['cor@123'];
-    let tentativa = 4;
+function login() {
 
-    function login() {
+    var emailVar = ipt_email.value;
+    var senhaVar = ipt_senha.value;
 
-        let email = ipt_email.value;
-        let senha = ipt_senha.value;
-        let contador = 0;
-        let erro = false;
+    var msg = document.getElementById("msg");
 
-        msg_email.innerHTML = "";
-        msg_senha.innerHTML = "";
-        msg.innerHTML = "";
+    if (emailVar == "" || senhaVar == "") {
 
-        if (!email.includes('@')) {
-            msg_email.innerHTML = "✖ Email inválido";
-            erro = true;
-        }
-
-        if (senha.length < 6) {
-            msg_senha.innerHTML = "✖ Senha inválida";
-            erro = true;
-        }
-        if (!senha.includes('@') &&
-            !senha.includes('#') &&
-            !senha.includes('%') &&
-            !senha.includes('&') &&
-            !senha.includes('$')){
-            erro = true;
-                }
-
-            if (listaSenha[0] != senha) {
-                if (tentativa > 1) {
-                    while (contador < 1) {
-                        tentativa--;
-                        contador++
-                        alert(`Errouuu. Restam ${tentativa} chances!`)
-                    }
-                } else {
-                    alert('Você errou a senha 3 vezes, tente novamente mais tarde!')
-                }
-            } else {
-                alert("Login realizado com sucesso!");
-            }
-        }
-    
-  /*aguardar();
-
-        var emailVar = ipt_email.value;
-        var senhaVar = ipt_senha.value;
-
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
-            return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
-
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
-                    setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
+        msg.innerHTML = "Preencha todos os campos!";
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
-*/
+    console.log("FORM LOGIN:", emailVar);
+    console.log("FORM SENHA:", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: emailVar,
+            senhaServer: senhaVar
+        })
+    })
+
+    .then(function (resposta) {
+
+        if (resposta.ok) {
+
+            resposta.json().then(json => {
+
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.NOME_USUARIO = json.nome;
+                sessionStorage.ID_USUARIO = json.id;
+
+                msg.innerHTML = "Login realizado com sucesso!";
+
+                setTimeout(function () {
+                    window.location = "./dashboard/cards.html";
+                }, 1000);
+
+            });
+
+        } else {
+
+            resposta.text().then(texto => {
+
+                msg.innerHTML = "Email ou senha inválidos!";
+                console.error(texto);
+
+            });
+        }
+
+    })
+
+    .catch(function (erro) {
+
+        console.log(erro);
+        msg.innerHTML = "Erro ao realizar login.";
+
+    });
+
+    return false;
+}
 
 </script>

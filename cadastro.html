@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="cadastro.css">
-    <link rel="stylesheet" href="home.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cadastro</title>
+
+  <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
+
 <header class="header">
     <div class="container">
         <a href="#" class="logo">
@@ -14,11 +21,11 @@
         </a>
 
         <nav class="navbar">
-            <a href="home.html">Home</a>
+            <a href="index.html">Home</a>
             <a href="#hist">História</a>
             <a href="#gols">Top 10° Gols</a>
-            <a href="#mundi">Mundial</a>
-            <a href="#quiz">Quiz</a>
+            <a href="mundial.html">Mundial</a>
+            <a href="#quiz">QUIZ</a>
             <a href="login.html">Login</a>
         </nav>
     </div>
@@ -63,9 +70,9 @@
     <img src="imgs/olho_fechado.png" id="icone_olho" class="olho" onclick="olhoSenha()">
 
     </div>
+      <span id="msg_senha"></span>
     </div>
 
-        <span id="msg_senha"></span>
 
        <div class="textfield">
 
@@ -95,7 +102,9 @@
 </div>
 <div id="msg"></div> 
 </body>
+
 </html>
+
 <script>
 
 function olhoSenha() {
@@ -142,25 +151,12 @@ function cf_olhoSenha() {
         }
         function vlSenha() {
             let senha = ipt_senha.value;
-
-            let temEspecial =
-                senha.includes('@') ||
-                senha.includes('#') ||
-                senha.includes('%') ||
-                senha.includes('&') ||
-                senha.includes('$');
-
-            if (senha.length >= 6 && temEspecial) {
-            msg_senha.innerHTML = `<span class="certo">✔ Senha forte</span>`;
-        } 
-            else if (senha.length < 6 && temEspecial) {
-            msg_senha.innerHTML = `<span class="media">⚠ Senha média (curta, mas tem especial)</span>`;
-        } 
-            else if (senha.length >= 6 && !temEspecial) {
-            msg_senha.innerHTML = `<span class="media">⚠ Senha média (falta caractere especial)</span>`;
-        } 
-            else {
-            msg_senha.innerHTML = `<span class="erro">✖ Senha fraca</span>`;
+            if (senha.length < 6) {
+                msg_senha.innerHTML = `<span class="erro">✖ Senha fraca</span>`;
+            } else if (senha.includes('@')) {
+                msg_senha.innerHTML = `<span class="certo">✔ Senha forte</span>`;
+            } else {
+                msg_senha.innerHTML = `<span class="media">⚠ Senha média. <span class="erro">A senha precisa conter uma caractere especial</span>`;
             }
         }
         function cnfSenha() {
@@ -172,55 +168,75 @@ function cf_olhoSenha() {
                 msg_conf.innerHTML = `<span class="erro">✖ Senhas diferentes</span>`;
             }
         }
-        
-        
-        function cadastro() {
-            let msg = document.getElementById("msg");
-            
-            let nome = ipt_nome.value;
-            let email = ipt_email.value;
-            let senha = ipt_senha.value;
-            let conf_senha =ipt_cf_senha.value;
-            let erro = false;
 
-            msg_nome.innerHTML = "";
-            msg_email.innerHTML = "";
-            msg_senha.innerHTML = "";
-            msg_conf.innerHTML = "";
-            msg.innerHTML = "";
+function cadastro() {
 
-            if (nome.length <= 2) {
-                msg_nome.innerHTML = `<span class="erro">✖ Nome inválido</span>`;
-                erro = true;
-            }
+    var nomeVar = ipt_nome.value;
+    var emailVar = ipt_email.value;
+    var senhaVar = ipt_senha.value;
+    var confirmacaoSenhaVar = ipt_cf_senha.value;
 
-            if (!email.includes('@')) {
-                msg_email.innerHTML = `<span class="erro">✖ Email inválido</span>`;
-                erro = true;
-            }
+    var msg = document.getElementById("msg");
 
-            if (senha.length < 6) {
-                msg_senha.innerHTML = `<span class="erro">✖ Senha muito curta</span>`;
-                erro = true;
-            }
-            if (!senha.includes('@') &&
-                !senha.includes('#') &&
-                !senha.includes('%') &&
-                !senha.includes('&') &&
-                !senha.includes('$')){
-                 msg_senha.innerHTML = `<span class="erro">✖ Senha sem caracteres especiais</span>`;
-                erro = true;
-                }
+    if (
+        nomeVar == "" ||
+        emailVar == "" ||
+        senhaVar == "" ||
+        confirmacaoSenhaVar == ""
+    ) {
 
-            if (senha != conf_senha) {
-                msg_conf.innerHTML = `<span class="erro">✖ Senhas não coincidem</span>`;
-                erro = true;
-            }
+        msg.innerHTML = "Preencha todos os campos!";
+        return false;
+    }
 
-            if (!erro) {
-                alert(`conta criada com sucesso`);
+    if (senhaVar != confirmacaoSenhaVar) {
 
-            }
+        msg.innerHTML = "As senhas não coincidem!";
+        return false;
+    }
+
+    fetch("/usuarios/cadastrar", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+
+            nomeServer: nomeVar,
+            emailServer: emailVar,
+            senhaServer: senhaVar
+
+        }),
+    })
+
+    .then(function (resposta) {
+
+        if (resposta.ok) {
+
+            msg.innerHTML =
+                "Cadastro realizado com sucesso!";
+
+            setTimeout(() => {
+                window.location = "login.html";
+            }, 2000);
+
+        } else {
+
+            msg.innerHTML = "Erro ao realizar cadastro!";
         }
-        
+    })
+
+    .catch(function (erro) {
+
+        console.log(erro);
+        msg.innerHTML = "Erro no servidor.";
+
+    });
+
+    return false;
+}
+
 </script>

@@ -1,0 +1,225 @@
+:root {
+    --bg: #0b0b0f;
+    --card: #16161d;
+    --card-2: #1f1f2a;
+    --text: #eaeaea;
+    --muted: #a0a0a0;
+
+    --primary: #ffffff;
+    --primary-hover: #d0d0d0;
+
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f1c40f;
+}
+
+body {
+    margin: 0;
+    font-family: Verdana, Tahoma, sans-serif;
+    color: var(--text);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: url('fundo.png') no-repeat center/cover;
+    filter: grayscale(100%);
+
+    z-index: -1;
+}
+
+#pontuacaoEJogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#btnIniciarQuiz {
+    width: 180px;
+    height: 60px;
+
+    background-color: #000;
+    color: #fff;
+
+    border: 2px solid #fff;
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btnIniciarQuiz:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+/* cards */
+#pontuacao,
+#jogo {
+    width: 420px;
+    background: var(--card);
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#jogo {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* bloco das opções inteiro */
+#opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* cada opção */
+#opcoes span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card-2);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+
+#opcoes label {
+    flex: 1;
+    cursor: pointer;
+}
+
+#perguntaDaQuestaoAtual {
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+#botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#botoes button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background: var(--primary);
+    color: #000;
+}
+
+#botoes button:hover {
+    background: var(--primary-hover);
+}
+
+/* estados */
+#botoes button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* feedback */
+.text-success-with-bg {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--success);
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.text-danger-with-bg {
+    background: rgba(231, 76, 60, 0.15);
+    color: var(--danger);
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.text-warning-with-bg {
+    background: rgba(241, 196, 15, 0.15);
+    color: var(--warning);
+    padding: 6px;
+    border-radius: 6px;
+}
+.roxo{
+        background: rgba(66, 24, 255, 0.15);
+    color: white;
+}
+.crianca{
+            background: black;
+    color:white;
+}
+
+.TWITTER{
+     background: red;
+    color:white;
+}
+.rival{
+         background: green;
+    color: white;
+}
+.roxo,
+.criaca,
+.TWITTER,
+.rival {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+.btn-sair {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 40px;
+
+    background-color: #000;
+    border: 2px solid #fff;
+    border-radius: 10px;
+
+    z-index: 1000;
+}
+
+.btn-sair a {
+    text-decoration: none;
+}
+
+.btn-sair h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
+}
