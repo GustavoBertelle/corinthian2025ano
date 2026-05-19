@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Quiz</title>
+
+    <link rel="stylesheet" href="./../css/dash.css" />
+    <link rel="stylesheet" href="./../css/inicio.css" />
+
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div>
+
+            <div class="logo">
+                <img src="./../imgs/Logo_cor_branca.png">
+
+                <h1>CORINTHIANS</h1>
+
+                <p>Sport Club Corinthians Paulista</p>
+            </div>
+
+            <nav class="menu">
+                <a href="inicio.html">Início</a>
+                <a href="quiz.html">Quiz</a>
+                <a href="top10gols.html">Top 10 Gols</a>
+                <a href="dashboard.html">Estatísticas</a>
+                <a href="ranking.html">Ranking</a>
+                <a href="perfil.html">Perfil</a>
+                <a href="#">Configurações</a>
+                <a href="#">Sair</a>
+            </nav>
+
+        </div>
+
+        <div class="footer-sidebar">
+            <h2>AQUI É CORINTHIANS!</h2>
+            <p>O bando de loucos nunca para.</p>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <div class="banner"></div>
+
+        <div class="topbar">
+
+            <section class="hero">
+
+                <h1>
+                    ESTATÍSTICAS<br>
+                    <span>DO QUIZ</span>
+                </h1>
+
+                <p>
+                    Veja sua evolução, desempenho e quantidade de acertos
+                    no quiz em tempo real.
+                </p>
+
+            </section>
+
+            <div class="user">
+                Fiel Torcedor • Gustavo
+            </div>
+
+        </div>
+
+        <!-- CARDS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <h3>Desempenho Médio</h3>
+                <p>90.9%</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Acertos</h3>
+                <p>10</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Erros</h3>
+                <p>1</p>
+            </div>
+
+        </section>
+
+        <!-- GRÁFICO -->
+
+        <section class="graph">
+
+            <canvas id="myChart"></canvas>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
+
+<script>
+
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+
+        type:'line',
+
+        data:{
+
+            labels:[
+                'Quiz 1',
+                'Quiz 2',
+                'Quiz 3',
+                'Quiz 4',
+                'Quiz 5'
+            ],
+
+            datasets:[
+
+                {
+                    label:'Acertos',
+
+                    data:[6,7,8,9,10],
+
+                    fill:true,
+
+                    backgroundColor:'rgba(255,255,255,0.10)',
+
+                    borderColor:'#ffffff',
+
+                    pointBackgroundColor:'#ffffff',
+
+                    pointRadius:5,
+
+                    borderWidth:3,
+
+                    tension:0.4
+                },
+
+                {
+                    label:'Erros',
+
+                    data:[4,3,2,1,1],
+
+                    fill:true,
+
+                    backgroundColor:'rgba(255,0,0,0.06)',
+
+                    borderColor:'#e10600',
+
+                    pointBackgroundColor:'#e10600',
+
+                    pointRadius:5,
+
+                    borderWidth:3,
+
+                    tension:0.4
+                },
+
+                {
+                    label:'Desempenho (%)',
+
+                    data:[60,70,80,90,95],
+
+                    borderColor:'#00ffee',
+
+                    pointBackgroundColor:'#00ffee',
+
+                    pointRadius:4,
+
+                    borderWidth:3,
+
+                    tension:0.4
+                }
+
+            ]
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+                    labels:{
+                        color:'#fff',
+                        font:{
+                            size:14,
+                            weight:'bold'
+                        }
+                    }
+                }
+
+            },
+
+            scales:{
+
+                x:{
+                    ticks:{
+                        color:'#bdbdbd'
+                    },
+
+                    grid:{
+                        color:'rgba(255,255,255,0.05)'
+                    }
+                },
+
+                y:{
+                    beginAtZero:true,
+
+                    ticks:{
+                        color:'#bdbdbd'
+                    },
+
+                    grid:{
+                        color:'rgba(255,255,255,0.05)'
+                    }
+                }
+
+            }
+
+        }
+
+    });
+
+</script>

@@ -1,0 +1,321 @@
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Barlow',sans-serif;
+        }
+
+        :root{
+            --bg:#050505;
+            --card:rgba(255,255,255,0.04);
+            --border:rgba(255,255,255,0.08);
+            --text:#ffffff;
+            --gray:#9f9f9f;
+            --accent:#e10600;
+        }
+
+        body{
+            display:flex;
+            background:#000;
+            color:#fff;
+            overflow-x:hidden;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            width:260px;
+            height:100vh;
+
+            position:fixed;
+            left:0;
+            top:0;
+
+            background:rgba(0,0,0,0.92);
+
+            backdrop-filter:blur(14px);
+
+            border-right:1px solid rgba(255,255,255,0.06);
+
+            padding:25px;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+
+            z-index:10;
+        }
+
+        .logo{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .logo img{
+            width:80px;
+            margin-bottom:10px;
+        }
+
+        .logo h1{
+            font-size:38px;
+            font-weight:900;
+            letter-spacing:1px;
+        }
+
+        .logo p{
+            color:#888;
+            font-size:14px;
+        }
+
+        .menu{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:#fff;
+
+            padding:16px 18px;
+
+            border-radius:16px;
+
+            background:rgba(255,255,255,0.03);
+
+            border:1px solid rgba(255,255,255,0.05);
+
+            transition:0.3s;
+        }
+
+        .menu a:hover{
+            background:#fff;
+            color:#000;
+
+            transform:translateX(6px);
+        }
+
+        .footer-sidebar{
+            background:rgba(255,255,255,0.03);
+
+            border:1px solid rgba(255,255,255,0.05);
+
+            border-radius:20px;
+
+            padding:20px;
+
+            text-align:center;
+        }
+
+        .footer-sidebar h2{
+            font-size:18px;
+            margin-bottom:10px;
+        }
+
+        .footer-sidebar p{
+            color:#8f8f8f;
+            font-size:14px;
+        }
+
+        /* MAIN */
+
+        .main{
+            flex:1;
+            margin-left:260px;
+
+            padding:40px;
+
+            min-height:100vh;
+
+            position:relative;
+            overflow:hidden;
+        }
+
+        /* BACKGROUND */
+
+        .banner{
+            position:absolute;
+            inset:0;
+
+            background:
+            linear-gradient(
+            to right,
+            rgba(0,0,0,0.88),
+            rgba(0,0,0,0.72)
+            ),
+            url('./../imgs/fundo.png');
+
+            background-size:cover;
+            background-position:center;
+
+            filter:grayscale(40%);
+
+            z-index:-1;
+        }
+
+        /* TOPBAR */
+
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+
+            margin-bottom:50px;
+        }
+
+        /* HERO */
+
+        .hero h1{
+            font-size:58px;
+            line-height:58px;
+            font-weight:900;
+
+            margin-bottom:20px;
+
+            text-shadow:
+            0 0 20px rgba(255,255,255,0.08);
+        }
+
+        .hero span{
+            color:var(--accent);
+        }
+
+        .hero p{
+            max-width:650px;
+
+            color:#b5b5b5;
+
+            font-size:19px;
+            line-height:30px;
+        }
+
+        /* USER */
+
+        .user{
+            background:rgba(255,255,255,0.04);
+
+            border:1px solid rgba(255,255,255,0.06);
+
+            backdrop-filter:blur(10px);
+
+            padding:16px 22px;
+
+            border-radius:18px;
+
+            font-weight:700;
+
+            box-shadow:
+            0 4px 30px rgba(0,0,0,0.35);
+        }
+
+        /* CARDS */
+
+        .stats-grid{
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(250px,1fr));
+
+            gap:25px;
+
+            margin-bottom:40px;
+        }
+
+        .stat-card{
+            background:rgba(255,255,255,0.04);
+
+            backdrop-filter:blur(10px);
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            border-radius:24px;
+
+            padding:32px;
+
+            transition:0.3s ease;
+
+            box-shadow:
+            0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .stat-card:hover{
+            transform:translateY(-6px);
+
+            border-color:rgba(255,255,255,0.16);
+
+            box-shadow:
+            0 10px 40px rgba(0,0,0,0.45);
+        }
+
+        .stat-card h3{
+            color:#9f9f9f;
+
+            margin-bottom:18px;
+
+            font-size:14px;
+
+            text-transform:uppercase;
+
+            letter-spacing:1px;
+        }
+
+        .stat-card p{
+            font-size:58px;
+
+            font-weight:900;
+
+            letter-spacing:-2px;
+        }
+
+        /* GRÁFICO */
+
+        .graph{
+            background:rgba(255,255,255,0.03);
+
+            backdrop-filter:blur(8px);
+
+            border:1px solid rgba(255,255,255,0.06);
+
+            border-radius:28px;
+
+            padding:30px;
+
+            box-shadow:
+            0 4px 30px rgba(0,0,0,0.4);
+        }
+
+        canvas{
+            width:100% !important;
+            height:450px !important;
+        }
+
+        /* RESPONSIVO */
+
+        @media(max-width:900px){
+
+            body{
+                flex-direction:column;
+            }
+
+            .sidebar{
+                width:100%;
+                height:auto;
+                position:relative;
+            }
+
+            .main{
+                margin-left:0;
+                padding:25px;
+            }
+
+            .topbar{
+                flex-direction:column;
+                gap:20px;
+            }
+
+            .hero h1{
+                font-size:42px;
+                line-height:44px;
+            }
+
+        }
