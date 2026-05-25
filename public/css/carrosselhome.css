@@ -44,6 +44,8 @@ html{
     cursor:pointer;
 
     overflow:hidden;
+
+    position:relative; /* ADICIONE ISSO */
 }
 
 /* classe adicionada pelo JS */
@@ -66,6 +68,33 @@ html{
     }
 
 }
+.icone-touch{
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    width:40px;
+    height:40px;
+
+    background:rgba(0,0,0,0.65);
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:20;
+
+    animation:pulse 1.5s infinite;
+}
+
+.icone-touch img{
+    width:22px;
+    height:22px;
+}
+
 
 /* ================= CARD INTERNO ================= */
 

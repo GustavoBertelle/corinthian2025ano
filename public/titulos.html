@@ -1,75 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <link rel="stylesheet" href="./../css/titulos.css">
+
+    <title>Títulos Corinthians</title>
+
+    <link rel="stylesheet" href="./../css/titulos.css">
+    <link rel="stylesheet" href="./../css/home.css">
 </head>
+
 <body>
-    <div class="cont">
-    <h1> Todos os títulos do Sport Clube Corinthians Paulista</h1>
 
-       <!-- Titulos estaduais-->
-    <div class="Paulista">
-    <p>Campeonato Paulista </p>
-    <div class="img-paulista">
-        <img src="imgs/taca-paulista.webp" alt="" class="img-p">
-    </div>
-    </div>
+    <!-- HEADER -->
 
+    <header class="header">
 
-   <!-- Titulos nacionais-->
-    <div class="nacionais">
-    <div class="Copa do Brasil">
-        <p>Copa do Brasil</p>
-        <div class="img-copa">
-            <img src="imgs/taca-copab.jpg" alt="" class="img-cb">
+        <div class="container">
 
-        </div>
-    </div>
-    
-        <div class="Brasileirão">
-        <p>Brasileirão</p>
-        <div class="img-copa">
-            <img src="imgs/taca-brasil.webp" alt="" class="img-b">
+            <a href="#" class="logo">
+                <img src="imgs/Logo_cor_branca.png" alt="Logo Corinthians">
+            </a>
+
+            <nav class="navbar">
+                <a href="index.html">Home</a>
+                <a href="#hist">História</a>
+                <a href="titulos.html">Títulos</a>
+                <a href="login.html">Login</a>
+            </nav>
 
         </div>
-    </div>
-            <div class="Brasileirão">
-        <p>Supercopa do Brasil</p>
-        <div class="img-sb">
-            <img src="imgs/taca-sb.jpg" alt="" class="img-sb">
+
+    </header>
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TÍTULO -->
+
+        <div class="title">
+            <h1>Todos os títulos do Sport Club</h1>
+                <h1> Corinthians Paulista</h1>
+        </div>
+
+        <!-- GRID DE TÍTULOS -->
+
+        <section class="grid">
+
+            <!-- PAULISTA -->
+            <div class="card">
+                <img src="imgs/taca-paulista.webp" alt="Paulista">
+
+                <div class="content">
+                    <h2>Paulista</h2>
+                    <span class="quantidade">31 títulos</span>
+                </div>
+
+            </div>
+            <!-- Copa Paulista -->
+                       <div class="card">
+                <img src="imgs/taca-rio.png" alt="Rio-sp">
+
+                <div class="content">
+                    <h2>Rio-São Paulo</h2>
+                    <span class="quantidade">5 títulos</span>
+                </div>
+
+            </div>
+
+            <!-- COPA DO BRASIL -->
+            <div class="card">
+
+                <img src="imgs/taca-copab.jpg" alt="Copa do Brasil">
+
+                <div class="content">
+                    <h2>Copa do Brasil</h2>
+                    <span class="quantidade">3 títulos</span>
+                </div>
+
+            </div>
+
+            <!-- SUPERCOPA -->
+            <div class="card">
+
+                <img src="imgs/taca-sb.jpg" alt="Supercopa do Brasil">
+
+                <div class="content">
+                    <h2>Supercopa do Brasil</h2>
+                    <span class="quantidade">1 título</span>
+                </div>
+
+            </div>
+
+            <!-- BRASILEIRÃO -->
+            <div class="card">
+
+                <img src="imgs/taca-brasil.webp" alt="Brasileirão">
+
+                <div class="content">
+                    <h2>Brasileirão</h2>
+                    <span class="quantidade">7 títulos</span>
+                </div>
+
+            </div>
+
+            <!-- MUNDIAL -->
+            <div class="card">
+
+                <img src="imgs/taca-mundial.jpg" alt="Mundial">
+
+                <div class="content">
+                    <h2>Mundial</h2>
+                    <span class="quantidade">2 títulos</span>
+                </div>
+
+            </div>
+
+            <!-- LIBERTADORES -->
+            <div class="card">
+
+                <img src="imgs/taca-liber.gif" alt="Libertadores">
+
+                <div class="content">
+                    <h2>Libertadores</h2>
+                    <span class="quantidade">1 título</span>
+                </div>
+
+            </div>
+
+            <!-- RECOPA -->
+            <div class="card">
+
+                <img src="imgs/taca-recopa.jpg" alt="Recopa">
+
+                <div class="content">
+                    <h2>Recopa</h2>
+                    <span class="quantidade">1 título</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+    <footer class="footer">
+
+        <div class="container">
+
+            <h4>
+                Site feito por Gustavo Bertelle; SPTech © 2026
+            </h4>
+
+            <span class="version">
+                v1.0.0
+            </span>
 
         </div>
-    </div>
-</div>
-       <!-- Titulos Internacionais-->
 
-        <div class="internacional">
-        <div class="Libertadores">
-        <p>Libertadores</p>
-        <div class="img-libertadores">
-            <img src="imgs/taca-liber.gif" alt="" class="img-l">
-    </div>
-    </div>
-        <div class="Mundial">
-        <p>Mundial de Clubes</p>
-        <div class="img-mundial">
-            <img src="imgs/taca-mundial.jpg" alt="" class="img-m">
-        </div>
-    </div>
+    </footer>
 
-            <div class="Mundial">
-        <p>Recopa Sul-Americana</p>
-        <div class="img-recopa">
-            <img src="imgs/taca-recopa.jpg" alt="" class="img-rp">
-        </div>
-    </div>
-
-    </div>
-
-
-</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var quizModel = require("../models/quizModel");
+var quizModel = require("../models/respostaModel");
 
 // ÚLTIMOS RESULTADOS
 

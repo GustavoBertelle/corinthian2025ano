@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador do Mundial</title>
+
+    <link rel="stylesheet" href="./../css/inicio.css" />
+    <link rel="stylesheet" href="./../css/mundial.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div>
+
+        <div class="logo">
+            <img src="./../imgs/Logo_cor_branca.png">
+            <h1>CORINTHIANS</h1>
+            <p>Sport Club Corinthians Paulista</p>
+        </div>
+
+        <nav class="menu">
+            <a href="inicio.html">Início</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="top10gols.html">Top 10 Gols</a>
+            <a href="dashboard.html">Estatísticas</a>
+            <a href="mundial.html">Simulador</a>
+            <a href="#" onclick="limparSessao()">Sair</a>
+        </nav>
+
+    </div>
+
+    <div class="footer-sidebar">
+        <h2>AQUI É CORINTHIANS!</h2>
+        <p>O bando de loucos nunca para.</p>
+    </div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <div class="bannerfifa"></div>
+
+    <div class="topbar">
+        <div></div>
+        <div class="user">
+            Fiel Torcedor <span id="cargo_usuario"></span>
+        </div>
+    </div>
+ <div id="areaTimes">
+    <section class="hero">
+
+        <h1>Simulador do Mundial de Clubes</h1>
+        <h6>Escolha seu time e simule os próximos 50 anos</h6>
+
+            <div class="ListaTimes">
+
+                <div class="opcoesTimes" id="listaTimes"></div>
+
+                <div class="bot">
+                    <button onclick="apostar()">Apostar</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- MODAL -->
+<div id="msg"></div>
+
+</body>
+</html>
+<script>
+    let times = [
+    { nome: "Corinthians", img: "./../imgs/Corinthians.png", tipo: "br" },
+    { nome: "Palmeiras", img: "./../imgs/Palmeiras.png", tipo: "br" },
+    { nome: "São Paulo", img: "./../imgs/saopaulo.png", tipo: "br" },
+    { nome: "Santos", img: "./../imgs/santos.png", tipo: "br" },
+    { nome: "Flamengo", img: "./../imgs/fla.png", tipo: "br" },
+    { nome: "Fluminense", img: "./../imgs/cor.png", tipo: "br" },
+    { nome: "Botafogo", img: "./../imgs/bota.png", tipo: "br" },
+    { nome: "Cruzeiro", img: "./../imgs/cruzeiro.png", tipo: "br" },
+
+    { nome: "Real Madrid", img: "./../imgs/real.png", tipo: "eu" },
+    { nome: "Barcelona", img: "./../imgs/barca.webp", tipo: "eu" },
+    { nome: "PSG", img: "./../imgs/psg.png", tipo: "eu" },
+    { nome: "Chelsea", img: "./../imgs/chelsea.png", tipo: "eu" },
+    { nome: "Manchester City", img: "./../imgs/man.png", tipo: "eu" },
+    { nome: "Inter de Milão", img: "./../imgs/mila.png", tipo: "eu" },
+    { nome: "Bayern de Munique", img: "./../imgs/bay.png", tipo: "eu" }
+];
+    let vt_brasil = ['São Paulo', 'Santos', 'Fluminense', 'Flamengo', 'Cruzeiro'];
+    let vt_europa = ['Real Madrid', 'Barcelona', 'PSG', 'Chelsea', 'Manschester City', 'Inter de Milão', 'Bayer de Mnuique'];
+
+let timeEscolhido = null;
+
+function carregarTimes() {
+
+    let container = document.getElementById("listaTimes");
+
+    times.forEach((time, index) => {
+
+        let card = document.createElement("div");
+        card.classList.add("card-time");
+
+        card.innerHTML = `
+            <img src="${time.img}" onclick="selecionarTime(${index}, this)">
+            <p>${time.nome}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function selecionarTime(index, el) {
+
+    timeEscolhido = times[index];
+
+    document.querySelectorAll(".card-time img")
+        .forEach(img => img.classList.remove("selecionado"));
+
+    el.classList.add("selecionado");
+}
+function getPeso(time, escolhido) {
+
+    let peso = 0;
+
+    if (time.nome === "Palmeiras") {
+        return 0; // nunca ganha
+    }
+
+    if (time.nome === "Corinthians") {
+        peso = 45;
+    }
+    else if (time.tipo === "br") {
+        peso = 20;
+    }
+    else if (time.tipo === "eu") {
+        peso = 35;
+    }
+
+    // bônus do time escolhido
+    if (escolhido && time.nome === escolhido.nome && time.nome !== "Palmeiras") {
+        peso += 5;
+    }
+
+    return peso;
+}
+function sortearCampeao(escolhido) {
+
+    let pesos = times.map(t => getPeso(t, escolhido));
+
+    let total = pesos.reduce((a, b) => a + b, 0);
+
+    let random = Math.random() * total;
+
+    let soma = 0;
+
+    for (let i = 0; i < times.length; i++) {
+        soma += pesos[i];
+        if (random <= soma) {
+            return times[i];
+        }
+    }
+
+    return times[0];
+}
+
+function simular50Anos(escolhido) {
+
+    let resultados = {};
+
+    // inicializa todos
+    times.forEach(t => {
+        resultados[t.nome] = 0;
+    });
+
+    // simula 50 anos
+    for (let i = 0; i < 50; i++) {
+        let campeao = sortearCampeao(escolhido);
+        resultados[campeao.nome]++;
+    }
+
+    return resultados;
+}
+
+function gerarRanking(resultados, escolhido) {
+
+    let lista = [];
+
+    for (let nome in resultados) {
+        let time = times.find(t => t.nome === nome);
+
+        lista.push({
+            nome,
+            img: time.img,
+            vitorias: resultados[nome]
+        });
+    }
+
+    // ordena por títulos (maior → menor)
+    lista.sort((a, b) => b.vitorias - a.vitorias);
+
+    return lista;
+}
+
+function apostar() {
+
+    const msg = document.getElementById("msg");
+    const area = document.getElementById("areaTimes");
+
+    if (!timeEscolhido) {
+        alert("Escolha um time primeiro!");
+        return;
+    }
+
+    let resultados = simular50Anos(timeEscolhido);
+
+    let ranking = gerarRanking(resultados, timeEscolhido);
+
+    area.style.display = "none";
+
+    // 🔥 CARD DO USUÁRIO (SEPARADO)
+    let meuTimeHTML = `
+        <div style="
+            background:#fff;
+            color:#000;
+            padding:20px;
+            border-radius:15px;
+            margin-bottom:20px;
+            text-align:center;
+        ">
+            <h2>Você escolheu</h2>
+            <img src="${timeEscolhido.img}" style="width:120px;">
+            <h3>${timeEscolhido.nome}</h3>
+            <p><b>${resultados[timeEscolhido.nome]} títulos</b></p>
+        </div>
+    `;
+
+    // 🔥 RANKING GERAL (SEM MEXER NA ORDEM)
+    let listaHTML = `
+        <h2>Ranking Geral (50 anos)</h2>
+
+        <div style="
+            max-height:400px;
+            overflow-y:auto;
+            padding-right:10px;
+        ">
+    `;
+
+    ranking.forEach((t, index) => {
+        listaHTML += `
+            <div style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+                margin:10px 0;
+                padding:10px;
+                border-bottom:1px solid #ccc;
+            ">
+                <h3>#${index + 1}</h3>
+                <img src="${t.img}" style="width:50px;">
+                <p><b>${t.nome}</b> - ${t.vitorias} títulos</p>
+            </div>
+        `;
+    });
+
+    listaHTML += `</div>`;
+
+    // 🔥 RESULTADO FINAL
+    msg.style.display = "block";
+    msg.innerHTML = `
+        <h1>Simulação de 50 anos</h1>
+
+        ${meuTimeHTML}
+
+        ${listaHTML}
+
+        <button onclick="location.reload()" style="margin-top:20px; background: black;
+        color: white;">
+            Simular novamente
+        </button>
+    `;
+
+}
+
+function limparSessao() {
+    sessionStorage.clear();
+    window.location = "../index.html";
+}
+
+cargo_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+carregarTimes();
+</script>

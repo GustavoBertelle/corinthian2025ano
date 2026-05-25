@@ -22,7 +22,7 @@ function buscarUltimasMedidas(idUsuario, limite_linhas) {
             acertos,
             erros,
             DATE_FORMAT(dataQuiz,'%H:%i:%s') AS momento_grafico
-        FROM quiz
+        FROM pergunta
         WHERE fkUsuario = ${idUsuario}
         ORDER BY idQuiz DESC
         LIMIT ${limite_linhas};
@@ -43,7 +43,7 @@ function buscarMedidasEmTempoReal(idUsuario) {
             acertos,
             erros,
             DATE_FORMAT(dataQuiz,'%H:%i:%s') AS momento_grafico
-        FROM quiz
+        FROM pergunta
         WHERE fkUsuario = ${idUsuario}
         ORDER BY idQuiz DESC
         LIMIT 1;

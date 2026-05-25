@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Avisos</title>
+    <title>QUIZ</title>
 
         <link rel="stylesheet" href="./../css/quiz.css" />
 
@@ -85,7 +85,7 @@
 <script>
     const listaDeQuestoes = [
 
-        {
+           {
             pergunta: "Contra quem foi o jogo da final do paulista de 2025?",
             alternativaA: "Santos",
             alternativaB: "São Paulo",
@@ -177,245 +177,250 @@
             alternativaCorreta: "alternativaA"
         },
 
+    ];
 
 
-    ]
+    let numeroDaQuestaoAtual = 0;
+    let pontuacaoFinal = 0;
+    let certas = 0;
+    let erradas = 0;
 
-    // variáveis globais    
-    let numeroDaQuestaoAtual = 0
-    let pontuacaoFinal = 0
-    let tentativaIncorreta = 0
-    let certas = 0
-    let erradas = 0
-    let quantidadeDeQuestoes = listaDeQuestoes.length
-    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+    let quantidadeDeQuestoes = listaDeQuestoes.length;
+
 
     function onloadEsconder() {
-        document.getElementById('pontuacao').style.display = "none"
-        document.getElementById('jogo').style.display = "none"
+
+        document.getElementById('pontuacao').style.display = "none";
+        document.getElementById('jogo').style.display = "none";
+
     }
+
 
     function iniciarQuiz() {
-        document.getElementById('pontuacao').style.display = "flex"
-        document.getElementById('jogo').style.display = "flex"
-        document.getElementById('btnIniciarQuiz').style.display = "none"
 
-        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+        alert('Atenção: apenas um quiz será registrado');
+        document.getElementById('pontuacao').style.display = "flex";
+        document.getElementById('jogo').style.display = "flex";
+        document.getElementById('btnIniciarQuiz').style.display = "none";
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
+        preencherHTMLcomQuestaoAtual(0);
 
-        preencherHTMLcomQuestaoAtual(0)
+        btnSubmeter.disabled = false;
+        btnProx.disabled = true;
+        btnTentarNovamente.disabled = true;
 
-        btnSubmeter.disabled = false
-        btnProx.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = true
     }
 
+
     function preencherHTMLcomQuestaoAtual(index) {
-        habilitarAlternativas(true)
-        const questaoAtual = listaDeQuestoes[index]
-        numeroDaQuestaoAtual = index
-        console.log("questaoAtual")
-        console.log(questaoAtual)
-        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+
+        habilitarAlternativas(true);
+        const questaoAtual = listaDeQuestoes[index];
+        numeroDaQuestaoAtual = index;
+
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = index + 1;
         document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
         document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
         document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
         document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
         document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+
     }
 
-    function submeter() {
-        const options = document.getElementsByName("option"); // recupera alternativas no html
+    // SUBMETER
 
-        let hasChecked = false
+    function submeter() {
+
+        const options = document.getElementsByName("option");
+        let hasChecked = false;
+
         for (let i = 0; i < options.length; i++) {
+
             if (options[i].checked) {
-                hasChecked = true
-                break
+                hasChecked = true;
+                break;
+
             }
+
         }
 
         if (!hasChecked) {
-            alert("Não há alternativas escolhidas. Escolha uma opção.")
+            alert("Escolha uma alternativa");
+
         } else {
-            btnSubmeter.disabled = true
-            btnProx.disabled = false
 
-            habilitarAlternativas(false)
+            btnSubmeter.disabled = true;
+            btnProx.disabled = false;
 
-            checarResposta()
+            habilitarAlternativas(false);
+            checarResposta();
+
+        }
+
+    }
+
+
+    function habilitarAlternativas(valor) {
+
+        let bloquear = valor ? false : true;
+
+        primeiraOpcao.disabled = bloquear;
+        segundaOpcao.disabled = bloquear;
+        terceiraOpcao.disabled = bloquear;
+        quartaOpcao.disabled = bloquear;
+
+    }
+
+    function avancar() {
+
+        btnProx.disabled = true;
+        btnSubmeter.disabled = false;
+
+        desmarcarRadioButtons();
+        limparCoresBackgroundOpcoes();
+        numeroDaQuestaoAtual++;
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+
+        } else {
+            finalizarJogo();
+
         }
     }
 
-    function habilitarAlternativas(trueOrFalse) {
-        let opcaoEscolhida = trueOrFalse ? false : true
-
-        primeiraOpcao.disabled = opcaoEscolhida
-        segundaOpcao.disabled = opcaoEscolhida
-        terceiraOpcao.disabled = opcaoEscolhida
-        quartaOpcao.disabled = opcaoEscolhida
-
-    }
-
-function avancar() {
-    btnProx.disabled = true
-    btnSubmeter.disabled = false
-
-    desmarcarRadioButtons()
-    limparCoresBackgroundOpcoes()
-
-    numeroDaQuestaoAtual++
-
-    if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
-        preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-    } else {
-        finalizarJogo()
-    }
-        limparCoresBackgroundOpcoes()
-    }
 
     function tentarNovamente() {
-        // atualiza a página
-        window.location.reload()
+        window.location.reload();
     }
 
     function checarResposta() {
-        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
-        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
 
-        const options = document.getElementsByName("option"); // recupera alternativas no html
-
-        let alternativaCorreta = null // variável para armazenar a alternativa correta
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual];
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta;
+        const options = document.getElementsByName("option");
+        let alternativaCorreta = null;
 
         options.forEach((option) => {
             if (option.value === respostaQuestaoAtual) {
-                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
-                alternativaCorreta = option.labels[0].id
+                alternativaCorreta = option.labels[0].id;
             }
-        })
+        });
 
-        // verifica se resposta assinalada é correta
         options.forEach((option) => {
-            if (option.checked === true && option.value === respostaQuestaoAtual) {
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                pontuacaoFinal++
-                certas++
-                document.getElementById("spanCertas").innerHTML = certas
+            if (option.checked) {
+                console.log(sessionStorage.ID_USUARIO);
+                fetch("/resposta/salvar", {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        fkUsuario: sessionStorage.ID_USUARIO,
+                        fkPergunta: numeroDaQuestaoAtual + 1,
+                        respostaEscolhida: option.value,
+                        respostaCerta: respostaQuestaoAtual
+
+                    })
+
+                })
+
+                .then(function(resposta){
+                    console.log("Resposta salva");
+
+                })
+
+                .catch(function(erro){
+                    console.log(erro);
+
+                });
+
+                if (option.value === respostaQuestaoAtual) {
+                    document.getElementById(alternativaCorreta)
+                    .classList.add("text-success-with-bg");
+                    pontuacaoFinal++;
+                    certas++;
+                    document.getElementById("spanCertas")
+                    .innerHTML = certas;
+
+                }
 
 
-            } else if (option.checked && option.value !== respostaQuestaoAtual) {
-                const wrongLabelId = option.labels[0].id
+                else {
+                    const wrongLabelId = option.labels[0].id;
 
-                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
-                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                tentativaIncorreta++
-                erradas++
-                document.getElementById("spanErradas").innerHTML = erradas
+                    document.getElementById(wrongLabelId)
+                    .classList.add("text-danger-with-bg");
+                    document.getElementById(alternativaCorreta)
+                    .classList.add("text-success-with-bg");
 
+                    erradas++;
+                    document.getElementById("spanErradas")
+                    .innerHTML = erradas;
+
+                }
             }
-        })
+        });
     }
 
     function limparCoresBackgroundOpcoes() {
         const options = document.getElementsByName("option");
         options.forEach((option) => {
-            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
-            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
-        })
+
+            document.getElementById(option.labels[0].id)
+            .classList.remove("text-danger-with-bg");
+
+            document.getElementById(option.labels[0].id)
+            .classList.remove("text-success-with-bg");
+
+        });
+
     }
+
 
     function desmarcarRadioButtons() {
         const options = document.getElementsByName("option");
+
         for (let i = 0; i < options.length; i++) {
             options[i].checked = false;
+
         }
     }
 
-    function finalizarJogo() {
-         let textoParaMensagemFinal = null
-    let classComCoresParaMensagemFinal = null
-    const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+   function finalizarJogo() {
+    let txt_msgfinal = null;
+    const porcentagemFinalDeAcertos =
+    pontuacaoFinal / quantidadeDeQuestoes;
 
     if (porcentagemFinalDeAcertos <= 0.3) {
-
-        textoParaMensagemFinal = "RIVAl detectado?"
-        classComCoresParaMensagemFinal = "rival"
-
+        txt_msgfinal = "RIVAL detectado?";
     }
 
-    else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.5) {
-
-        textoParaMensagemFinal = "TWITTER"
-        classComCoresParaMensagemFinal = ""
-
+    else if (porcentagemFinalDeAcertos < 0.5) {
+        txt_msgfinal = "Torcedor de TWITTER";
     }
 
-    else if (porcentagemFinalDeAcertos > 0.5 && porcentagemFinalDeAcertos < 0.9) {
-
-        textoParaMensagemFinal = "Corinthiano desde criança"
-        classComCoresParaMensagemFinal = "crianca"
-
+    else if (porcentagemFinalDeAcertos < 0.9) {
+        txt_msgfinal = "Corinthiano desde criança";
     }
 
-    else if (porcentagemFinalDeAcertos >= 0.9) {
-
-        textoParaMensagemFinal = "Corinthiano ROXO"
-        classComCoresParaMensagemFinal = "roxo"
-
+    else {
+        txt_msgfinal = "Corinthiano ROXO";
     }
 
-    textoParaMensagemFinal +=
-    "<br> Você acertou " +
-    Math.round((porcentagemFinalDeAcertos)*100) +
-    "% das questões."
+    txt_msgfinal += "<br> Você acertou " +
+    Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões.";
 
-    document.getElementById('msgFinal').innerHTML =
-    textoParaMensagemFinal
+    document.getElementById('msgFinal').innerHTML = txt_msgfinal;
 
-    document.getElementById('msgFinal')
-    .classList.add(classComCoresParaMensagemFinal)
+    document.getElementById('spanPontuacaoFinal') .innerHTML = pontuacaoFinal;
 
-    document.getElementById('spanPontuacaoFinal')
-    .innerHTML = pontuacaoFinal
+    document.getElementById("jogo").style.display = "none";
 
-    document.getElementById('jogo')
-    .classList.add("text-new-gray")
-
-    btnProx.disabled = true
-    btnSubmeter.disabled = true
-    btnTentarNovamente.disabled = false
-
-    // SALVAR NO BANCO
-
-    fetch("/quiz/salvar", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-
-            acertos: certas,
-            erros: erradas,
-            fkUsuario: sessionStorage.ID_USUARIO
-
-        })
-
-    })
-
-    .then(function(resposta) {
-
-        console.log("Resultado salvo!");
-
-    })
-
-    .catch(function(erro) {
-
-        console.log(erro);
-
-    });
-
+    btnProx.disabled = true;
+    btnSubmeter.disabled = true;
+    btnTentarNovamente.disabled = false;
 }
 </script>

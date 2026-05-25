@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Área do Fiel | Corinthians</title>
+  <title>Corinthians</title>
   <link rel="stylesheet" href="./../css/inicio.css"/>
 
       <script src="../js/sessao.js"></script>
@@ -26,16 +26,14 @@
         <p>Sport Club Corinthians Paulista</p>
       </div>
 
-      <nav class="menu">
-        <a href="inicio.html"> Início</a>
-        <a href="quiz.html"> Quiz</a>
-        <a href="top10gols.html"> Top 10 Gols</a>
-        <a href="dashboard.html"> Estatísticas</a>
-        <a href="#"> Ranking</a>
-        <a href="#"> Perfil</a>
-        <a href="#"> Configurações</a>
-        <a href="#"> Sair</a>
-      </nav>
+            <nav class="menu">
+        <a href="inicio.html">Início</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="top10gols.html">Top 10 Gols</a>
+        <a href="dashboard.html">Estatísticas</a>
+        <a href="mundial.html">Simulador</a>
+        <a href="#" onclick="limparSessao()">Sair</a>
+        </nav>
 
     </div>
 <br>
@@ -123,50 +121,30 @@
           Veja seu desempenho no quiz,
           aproveitamento e evolução.
         </p>
-
-        <button>VER ESTATÍSTICAS</button>
+         <a href="./dashboard.html">
+        <button>Estatísticas</button>
+            </a>
       </div>
 
     </section>
 
-    <!-- KPIS -->
-
-    <section class="stats">
-
-      <h2>SEU DESEMPENHO</h2>
-
-      <div class="stats-grid">
-
-        <div class="stat-box">
-          <h3>Quizzes Jogados</h3>
-          <p>2</p>
-        </div>
-
-        <div class="stat-box">
-          <h3>Taxa de Acertos</h3>
-          <p>85%</p>
-        </div>
-
-        <div class="stat-box">
-          <h3>Sequência Atual</h3>
-          <p>10</p>
-        </div>
-
-        <div class="stat-box">
-          <h3>Posição Ranking</h3>
-          <p>#2</p>
-        </div>
-
-      </div>
-
-    </section>
 
   </main>
 
 </body>
 </html>
 <script>
-      b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+  function limparSessao(){
 
-    cargo_usuario.innerHTML =   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    sessionStorage.clear();
+
+    window.location = "../index.html";
+}
+
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    cargo_usuario.innerHTML =  sessionStorage.NOME_USUARIO;
+
+    const idUsuario = sessionStorage.ID_USUARIO;
   </script>

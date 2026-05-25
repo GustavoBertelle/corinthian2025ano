@@ -2,17 +2,13 @@ var database = require("../database/config");
 
 function autenticar(email, senha) {
 
-    console.log("ACESSEI O USUARIO MODEL");
-
-    var instrucaoSql = `
-        SELECT id, nome, email
-        FROM usuario
-        WHERE email = '${email}' AND senha = '${senha}';
+    const instrucao = `
+        SELECT * FROM usuario
+        WHERE email = '${email}'
+        AND senha = '${senha}';
     `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-
-    return database.executar(instrucaoSql);
+    return database.executar(instrucao);
 }
 
 function cadastrar(nome, email, senha) {
