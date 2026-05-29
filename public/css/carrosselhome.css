@@ -5,56 +5,81 @@ html{
     display:flex;
     justify-content:center;
 
-    margin:40px 0;
+    margin:1px 0;
 }
 .container-carro{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:30px;
-
+    gap:15px;
+    position: relative;
     margin-bottom:40px;
 }
 
 /* ================= BOTÕES ================= */
 
 .btn-carrossel{
-    width:60px;
-    height:60px;
-    border:none;
+    width:70px;
+    height:70px;
+
     border-radius:50%;
-    background:#222;
-    color:white;
-    font-size:25px;
+
+    border:1px solid rgba(196,164,124,0.25);
+
+    background:rgba(20,20,20,0.75);
+
+    backdrop-filter:blur(5px);
+
+    color:#fff;
+
+    font-size:38px;
+    font-weight:bold;
+
     cursor:pointer;
+
     transition:0.3s;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .btn-carrossel:hover{
-    background:#444;
+    background:#000000;
+    color:rgb(255, 255, 255);
+
+    transform:scale(1.08);
+}
+
+.btn-esquerda{
+    position:absolute;
+    left:-35px;
+    z-index:20;
+}
+
+.btn-direita{
+    position:absolute;
+    right:-35px;
+    z-index:20;
 }
 
 /* ================= CARD ================= */
 
 .card{
-    width:350px;
-    height:500px;
+    width:800px;
+    height:550px;
 
     perspective:1000px;
     cursor:pointer;
 
     overflow:hidden;
 
-    position:relative; /* ADICIONE ISSO */
+    position:relative;
 }
-
-/* classe adicionada pelo JS */
+/* animação */
 .animar{
     animation:aparecer 0.4s ease;
 }
-
-/* animação */
-
 @keyframes aparecer{
 
     from{
@@ -126,7 +151,12 @@ html{
     overflow:hidden;
 
     backface-visibility:hidden;
+
+    box-shadow:0 0 30px rgba(196,164,124,0.15);
+
+     border:2px solid rgba(196,164,124,0.25);
 }
+
 
 /* imagem */
 

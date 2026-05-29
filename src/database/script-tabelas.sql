@@ -1,62 +1,49 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
-
+CREATE DATABASE PjIndividual;
+USE PjIndividual;
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL
 );
-
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+ALTER TABLE usuario MODIFY senha VARCHAR(50);
+CREATE TABLE pergunta (
+    idPergunta INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(100)
 );
+alter table pergunta modify column titulo varchar(999);
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE respostas (
+    fkUsuario INT,
+    fkPergunta INT,
+    respostaEscolhida CHAR(1) NOT NULL,
+    respostaCerta char(1),
+
+    PRIMARY KEY (fkUsuario, fkPergunta),
+    FOREIGN KEY (fkUsuario)
+	REFERENCES usuario(id),
+    FOREIGN KEY (fkPergunta)
+	REFERENCES pergunta (idPergunta)
 );
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
-
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+SELECT * FROM usuario;
+SELECT * FROM pergunta;
+SELECT MAX(idPergunta) FROM pergunta;
+SELECT * FROM respostas;
+INSERT INTO pergunta (titulo) VALUES
+('Contra quem foi o jogo da final do paulista de 2025?'),
+('Quem fez o gol que garantiu o titulo paulista de 2025'),
+('Quantos títulos paulista o Corinthians tem?'),
+('Qual técnico do Corinthians foi campeão do paulista de 2025?'),
+('Contra quem foi a estreia do paulista de 2025?'),
+('Aos 23 minutos do segundo tempo do último jogo da final, Félix Torres cometeu um pênalti. Qual jogador do Palmeiras cobrou?'),
+('Qual foi o placar do último jogo da final do Paulista?'),
+('Quem fez o gol que garantiu o titulo da Copa do Brasil de 2025'),
+('Contra quem foi o jogo mais díficil da Copa do Brasil?'),
+('No ano de 2025 qual era a probabilidade do Corinthians se classificar para a Copa do Brasil?'),
+('Qual técnico do Corinthians foi campeão da Copa do Brasil de 2025?');
+alter table respostas
+add column dataResposta DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE respostas
+MODIFY respostaEscolhida VARCHAR(20);
+ALTER TABLE respostas
+MODIFY respostaCerta VARCHAR(20);

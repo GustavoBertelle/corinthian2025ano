@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="./../css/inicio.css" />
 
     <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -26,9 +25,6 @@
 </head>
 
 <body>
-
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
         <div>
@@ -46,20 +42,15 @@
             <nav class="menu">
 
                 <a href="inicio.html">Início</a>
-
                 <a href="quiz.html">Quiz</a>
-
                 <a href="top10gols.html">Top 10 Gols</a>
-
                 <a href="dashboard.html">Estatísticas</a>
-
                 <a href="mundial.html">Simulador</a>
-
                 <a href="#" onclick="limparSessao()">Sair</a>
 
             </nav>
-
         </div>
+        <br>
 
         <div class="footer-sidebar">
 
@@ -207,10 +198,7 @@
     const idUsuario =
         sessionStorage.ID_USUARIO;
 
-    // =========================
     // KPIS
-    // =========================
-
     fetch(`/resposta/kpis/${idUsuario}`)
 
         .then(function (resposta) {
@@ -227,11 +215,9 @@
             let erros =
                 dados.totalErros || 0;
 
-            document.getElementById("acertos")
-                .innerHTML = acertos;
+            document.getElementById("acertos").innerHTML = acertos;
 
-            document.getElementById("erros")
-                .innerHTML = erros;
+            document.getElementById("erros").innerHTML = erros;
 
             let media = 0;
 
@@ -245,32 +231,22 @@
             document.getElementById("media")
                 .innerHTML = media.toFixed(1) + "%";
 
-            // =========================
-            // GRÁFICO
-            // =========================
 
-            const ctx =
-                document.getElementById('myChart');
+            // GRÁFICO
+            const ctx = document.getElementById('myChart');
 
             new Chart(ctx, {
-
                 type: 'doughnut',
-
                 data: {
-
                     labels: ['Acertos', 'Erros'],
-
                     datasets: [{
-
                         data: [acertos, erros],
-
                         backgroundColor: [
-                            '#4169E1',
+                            'white',
                             '#c40000'
                         ],
 
                         borderWidth: 0,
-
                         hoverOffset: 10
 
                     }]
@@ -279,15 +255,10 @@
                 options: {
 
                     responsive: true,
-
                     plugins: {
-
                         legend: {
-
                             labels: {
-
                                 color: 'white',
-
                                 font: {
                                     size: 14
                                 }
@@ -300,91 +271,58 @@
         });
 
     fetch("/resposta/ranking")
-
         .then(function (resposta) {
-
             return resposta.json();
-
         })
-
         .then(function (dados) {
 
             // PODIUM
-
             if (dados[0]) {
 
                 primeiroLugar.innerHTML = `
-
                 <h2>🥇</h2>
-
                 <h3>${dados[0].nome}</h3>
-
-                <p>${dados[0].acertos} acertos</p>
-
-                `;
+                <p>${dados[0].acertos} acertos</p> `;
 
             }
 
             if (dados[1]) {
-
                 segundoLugar.innerHTML = `
-
                 <h2>🥈</h2>
-
                 <h3>${dados[1].nome}</h3>
-
-                <p>${dados[1].acertos} acertos</p>
-
-                `;
+                <p>${dados[1].acertos} acertos</p> `;
 
             }
 
             if (dados[2]) {
-
                 terceiroLugar.innerHTML = `
-
                 <h2>🥉</h2>
-
                 <h3>${dados[2].nome}</h3>
-
-                <p>${dados[2].acertos} acertos</p>
-
-                `;
+                <p>${dados[2].acertos} acertos</p> `;
 
             }
 
             // RANKING LISTA
-
             let htmlRanking = "";
-
             for (let i = 0; i < dados.length; i++) {
-
-                htmlRanking += `
-
-                <div class="ranking-card">
-
+                htmlRanking += `<div class="ranking-card">
                     <div class="ranking-posicao">
 
                         #${i + 1}
-
                     </div>
 
                     <div class="ranking-info">
-
                         <h3>${dados[i].nome}</h3>
 
                         <p>${dados[i].acertos} acertos</p>
-
                     </div>
 
                 </div>
-
                 `;
 
             }
 
-            document.getElementById("rankingGrid")
-                .innerHTML = htmlRanking;
+            document.getElementById("rankingGrid") .innerHTML = htmlRanking;
 
         })
 

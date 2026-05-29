@@ -74,7 +74,7 @@
         <div class="content">
           <div class="position">#1 GOL</div>
           <h2>Martínez</h2>
-          <p>Golaço de fora da área.</p>
+
           <button onclick="abrirVideo('https://www.youtube.com/watch?v=_b6O0qG0440')">
             ASSISTIR GOL
           </button>
@@ -87,7 +87,7 @@
         <div class="content">
           <div class="position">#2 GOL</div>
           <h2>Maycon</h2>
-          <p>Gol de fora da área.</p>
+      
           <button onclick="abrirVideo('https://www.youtube.com/watch?v=7GWDIbZb4w8')">
             ASSISTIR GOL
           </button>
@@ -172,8 +172,7 @@
         <div class="content">
           <div class="position">#9 GOL</div>
           <h2>Martínez</h2>
-          <button data-link="https://ge.globo.com/futebol/video/aos-22-min-do-1o-tempo-gol-de-fora-da-area-de-jose-martinez-do-corinthians-contra-o-juventude-14160920.ghtml"
-            onclick="abrirVideo(this)">
+          <button onclick="abrirVideo('https://ge.globo.com/futebol/video/aos-22-min-do-1o-tempo-gol-de-fora-da-area-de-jose-martinez-do-corinthians-contra-o-juventude-14160920.ghtml')">
             ASSISTIR GOL
           </button>
         </div>
@@ -185,8 +184,7 @@
         <div class="content">
           <div class="position">#10 GOL</div>
           <h2>Matheuzinho</h2>
-          <button data-link="https://ge.globo.com/futebol/video/aos-44-min-do-2o-tempo-gol-de-falta-de-matheuzinho-do-corinthians-contra-o-juventude-13833782.ghtml"
-            onclick="abrirVideo(this)">
+            <button onclick="abrirVideo('https://ge.globo.com/futebol/video/aos-44-min-do-2o-tempo-gol-de-falta-de-matheuzinho-do-corinthians-contra-o-juventude-13833782.ghtml')">
             ASSISTIR GOL
           </button>
         </div>
@@ -198,10 +196,10 @@
         <div class="content">
           <div class="position">#Memoráveis</div>
           <h2>Memphis Depay</h2>
-          <button data-link="https://ge.globo.com/futebol/video/aos-17-min-do-2o-tempo-gol-de-dentro-da-area-de-memphis-depay-do-corinthians-contra-o-vasco-14198338.ghtml"
-            onclick="abrirVideo(this)">
+               <button onclick="abrirVideo('https://ge.globo.com/futebol/video/aos-17-min-do-2o-tempo-gol-de-dentro-da-area-de-memphis-depay-do-corinthians-contra-o-vasco-14198338.ghtml')">
             ASSISTIR GOL
           </button>
+          
         </div>
       </div>
 
@@ -211,8 +209,7 @@
         <div class="content">
           <div class="position">#Memoráveis</div>
           <h2>Yuri Alberto</h2>
-          <button data-link="https://ge.globo.com/futebol/times/corinthians/noticia/2025/03/22/yuri-alberto-embala-no-corinthians-como-carrasco-do-palmeiras-e-pode-se-igualar-a-romarinho-em-final.ghtml"
-            onclick="abrirVideo(this)">
+             <button onclick="abrirVideo('https://ge.globo.com/futebol/times/corinthians/noticia/2025/03/22/yuri-alberto-embala-no-corinthians-como-carrasco-do-palmeiras-e-pode-se-igualar-a-romarinho-em-final.ghtml')">
             ASSISTIR GOL
           </button>
         </div>
@@ -226,15 +223,6 @@
 
 <script>
   function abrirVideo(valor) {
-
-    // Caso 1: veio um elemento HTML (data-link)
-    if (typeof valor === "object") {
-      const link = valor.getAttribute("data-link");
-      window.open(link, "_blank");
-      return;
-    }
-
-    // Caso 2: veio uma string direta
     if (typeof valor === "string") {
       window.open(valor, "_blank");
     }

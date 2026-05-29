@@ -23,8 +23,10 @@
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="#hist">História</a>
-            <a href="titulo.html">Títulos</a>
+            <a href="titulos.html">Títulos</a>
+            <a href="login.html">Quiz</a>
             <a href="login.html">Login</a>
+            <a href="cadastro.html">Cadastro</a>
         </nav>
     </div>
 </header>
@@ -85,20 +87,23 @@
     </div>
        <span id="msg_conf"></span>
     </div>
+    <div id="msg"></div> 
 
             <button class="btn-cadastro" onclick="cadastro()">Cadastro</button>
 <div class="btn-login">
             <p class="plog">
                 Já possui uma conta?
                 <a href="login.html" id="btn_login" class="btn_login">Login</a>
+           
             </p>
+                 
             </div>
         </div>
         </div>
     </div>
 
 </div>
-<div id="msg"></div> 
+
 </body>
 
 </html>
@@ -151,7 +156,13 @@ function cf_olhoSenha() {
             let senha = ipt_senha.value;
             if (senha.length < 6) {
                 msg_senha.innerHTML = `<span class="erro">✖ Senha fraca</span>`;
-            } else if (senha.includes('@')) {
+            } else if (
+        senha.includes('@') ||
+        senha.includes('$') ||
+        senha.includes('#') ||
+        senha.includes('!')
+    )
+        {
                 msg_senha.innerHTML = `<span class="certo">✔ Senha forte</span>`;
             } else {
                 msg_senha.innerHTML = `<span class="media">⚠ Senha média. <span class="erro">A senha precisa conter uma caractere especial</span>`;
@@ -176,6 +187,7 @@ function cadastro() {
 
     var msg = document.getElementById("msg");
 
+    // CAMPOS VAZIOS
     if (
         nomeVar == "" ||
         emailVar == "" ||
@@ -187,6 +199,37 @@ function cadastro() {
         return false;
     }
 
+    // NOME
+    if (nomeVar.length <= 2) {
+
+        msg.innerHTML = "Nome inválido!";
+        return false;
+    }
+
+    // EMAIL
+    if (!emailVar.includes("@")) {
+
+        msg.innerHTML = "Email inválido!";
+        return false;
+    }
+
+    // SENHA
+    if (senhaVar.length < 6) {
+
+        msg.innerHTML = "Senha muito fraca!";
+        return false;
+    }
+
+    // CARACTERE ESPECIAL
+    if (!senhaVar.includes("@") && !senhaVar.includes("$")
+    && (!senhaVar.includes("#") && !senhaVar.includes("!")))
+ {
+
+        msg.innerHTML = "A senha precisa conter @";
+        return false;
+    }
+
+    // CONFIRMAÇÃO
     if (senhaVar != confirmacaoSenhaVar) {
 
         msg.innerHTML = "As senhas não coincidem!";
@@ -214,8 +257,7 @@ function cadastro() {
 
         if (resposta.ok) {
 
-            msg.innerHTML =
-                "Cadastro realizado com sucesso!";
+            msg.innerHTML = "Cadastro realizado com sucesso!";
 
             setTimeout(() => {
                 window.location = "login.html";

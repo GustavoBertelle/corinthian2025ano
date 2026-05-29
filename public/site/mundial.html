@@ -37,7 +37,7 @@
         </nav>
 
     </div>
-
+<br>
     <div class="footer-sidebar">
         <h2>AQUI É CORINTHIANS!</h2>
         <p>O bando de loucos nunca para.</p>
@@ -77,13 +77,17 @@
     </section>
 
 </main>
-
-<!-- MODAL -->
 <div id="msg"></div>
 
 </body>
 </html>
 <script>
+     function limparSessao(){
+    sessionStorage.clear();
+    window.location = "../index.html";
+}
+
+
     let times = [
     { nome: "Corinthians", img: "./../imgs/Corinthians.png", tipo: "br" },
     { nome: "Palmeiras", img: "./../imgs/Palmeiras.png", tipo: "br" },
@@ -102,80 +106,86 @@
     { nome: "Inter de Milão", img: "./../imgs/mila.png", tipo: "eu" },
     { nome: "Bayern de Munique", img: "./../imgs/bay.png", tipo: "eu" }
 ];
-    let vt_brasil = ['São Paulo', 'Santos', 'Fluminense', 'Flamengo', 'Cruzeiro'];
-    let vt_europa = ['Real Madrid', 'Barcelona', 'PSG', 'Chelsea', 'Manschester City', 'Inter de Milão', 'Bayer de Mnuique'];
-
+//guarda o time escolhido
 let timeEscolhido = null;
-
+//Crio os cards dos times
 function carregarTimes() {
 
     let container = document.getElementById("listaTimes");
-
+    // O forEach percorre todos os times do array
     times.forEach((time, index) => {
-
+// crio a DIV no JS
         let card = document.createElement("div");
+        //adiciono uma classe 
         card.classList.add("card-time");
-
+        // aqui eu falo que se o usuário clicar na imagem seleciona o time
         card.innerHTML = `
             <img src="${time.img}" onclick="selecionarTime(${index}, this)">
             <p>${time.nome}</p>
         `;
-
+        //Adiciona no container 
         container.appendChild(card);
     });
 }
-
 function selecionarTime(index, el) {
-
+    // guarda o time escolhido
     timeEscolhido = times[index];
-
-    document.querySelectorAll(".card-time img")
-        .forEach(img => img.classList.remove("selecionado"));
-
+    // pega todas as imagens
+    let imagens = document.querySelectorAll(".card-time img");
+    // remove a seleção de todas
+    for (let i = 0; i < imagens.length; i++) {
+        imagens[i].classList.remove("selecionado");
+    }
+    // adiciona seleção na imagem clicada
     el.classList.add("selecionado");
 }
 function getPeso(time, escolhido) {
 
     let peso = 0;
 
-    if (time.nome === "Palmeiras") {
-        return 0; // nunca ganha
+    if (time.nome == "Palmeiras") {
+        return 1; // em média ganha 1 vez a cada 381 mundiais
     }
 
-    if (time.nome === "Corinthians") {
-        peso = 45;
+    if (time.nome == "Corinthians") {
+        peso = 45; 
     }
-    else if (time.tipo === "br") {
-        peso = 20;
+    else if (time.tipo == "br") {
+        peso = 15;
     }
-    else if (time.tipo === "eu") {
+    else if (time.tipo == "eu") {
         peso = 35;
     }
-
     // bônus do time escolhido
-    if (escolhido && time.nome === escolhido.nome && time.nome !== "Palmeiras") {
+    if (escolhido && time.nome == escolhido.nome && time.nome != "Palmeiras") {
         peso += 5;
     }
 
     return peso;
 }
+
 function sortearCampeao(escolhido) {
+    let pesos = [];
+    let total = 0;
 
-    let pesos = times.map(t => getPeso(t, escolhido));
-
-    let total = pesos.reduce((a, b) => a + b, 0);
-
+    // pega o peso de cada time
+    for (let i = 0; i < times.length; i++) {
+        let pesoTime = getPeso(times[i], escolhido);
+        pesos.push(pesoTime);
+        total += pesoTime;
+    }
+    // gera número aleatório
     let random = Math.random() * total;
-
     let soma = 0;
 
+    // verifica em qual faixa o número caiu
     for (let i = 0; i < times.length; i++) {
         soma += pesos[i];
+
         if (random <= soma) {
             return times[i];
         }
     }
-
     return times[0];
 }
 
@@ -183,126 +193,100 @@ function simular50Anos(escolhido) {
 
     let resultados = {};
 
-    // inicializa todos
-    times.forEach(t => {
-        resultados[t.nome] = 0;
-    });
-
+    // inicializa todos os times com 0 títulos
+    for (let i = 0; i < times.length; i++) {
+        let nomeTime = times[i].nome;
+        resultados[nomeTime] = 0;
+    }
     // simula 50 anos
     for (let i = 0; i < 50; i++) {
         let campeao = sortearCampeao(escolhido);
         resultados[campeao.nome]++;
     }
-
     return resultados;
 }
 
-function gerarRanking(resultados, escolhido) {
+function gerarRanking(resultados) {
 
     let lista = [];
-
+    // percorre os resultados
     for (let nome in resultados) {
-        let time = times.find(t => t.nome === nome);
+        let imgTime = "";
 
+        // procura o time no array times
+        for (let i = 0; i < times.length; i++) {
+
+            if (times[i].nome == nome) {
+                imgTime = times[i].img;
+            }
+        }
+        // adiciona no ranking
         lista.push({
-            nome,
-            img: time.img,
-            vitorias: resultados[nome]
+            nome: nome,img: imgTime, vitorias: resultados[nome]
         });
     }
-
-    // ordena por títulos (maior → menor)
-    lista.sort((a, b) => b.vitorias - a.vitorias);
-
+    // ordena por vitórias
+    lista.sort(function(a, b) {
+        return b.vitorias - a.vitorias;
+    });
     return lista;
 }
 
 function apostar() {
+    let msg = document.getElementById("msg");
+    let area = document.getElementById("areaTimes");
 
-    const msg = document.getElementById("msg");
-    const area = document.getElementById("areaTimes");
-
-    if (!timeEscolhido) {
+    // verifica se escolheu um time
+    if (timeEscolhido == null) {
         alert("Escolha um time primeiro!");
         return;
     }
-
+    // simula os 50 anos
     let resultados = simular50Anos(timeEscolhido);
-
-    let ranking = gerarRanking(resultados, timeEscolhido);
-
+    // gera ranking
+    let ranking = gerarRanking(resultados);
+    // esconde área dos times
     area.style.display = "none";
+    // HTML do time escolhido
+    let meuTimeHTML = "";
 
-    // 🔥 CARD DO USUÁRIO (SEPARADO)
-    let meuTimeHTML = `
-        <div style="
-            background:#fff;
-            color:#000;
-            padding:20px;
-            border-radius:15px;
-            margin-bottom:20px;
-            text-align:center;
-        ">
-            <h2>Você escolheu</h2>
-            <img src="${timeEscolhido.img}" style="width:120px;">
-            <h3>${timeEscolhido.nome}</h3>
-            <p><b>${resultados[timeEscolhido.nome]} títulos</b></p>
-        </div>
-    `;
+    meuTimeHTML += '<div class="meu-time">';
+    meuTimeHTML += '<h2>Você escolheu</h2>';
+    meuTimeHTML += '<img src="' + timeEscolhido.img + '">';
+    meuTimeHTML += '<h3>' + timeEscolhido.nome + '</h3>';
+    meuTimeHTML += '<p><b>';
+    meuTimeHTML += resultados[timeEscolhido.nome] + ' títulos';
+    meuTimeHTML += '</b></p>';
+    meuTimeHTML += '</div>';
 
-    // 🔥 RANKING GERAL (SEM MEXER NA ORDEM)
-    let listaHTML = `
-        <h2>Ranking Geral (50 anos)</h2>
+    // HTML do ranking
+    let listaHTML = "";
 
-        <div style="
-            max-height:400px;
-            overflow-y:auto;
-            padding-right:10px;
-        ">
-    `;
+    listaHTML += '<h2>Ranking Geral (50 anos)</h2>';
+    listaHTML += '<div class="ranking-lista">';
 
-    ranking.forEach((t, index) => {
-        listaHTML += `
-            <div style="
-                display:flex;
-                align-items:center;
-                gap:10px;
-                margin:10px 0;
-                padding:10px;
-                border-bottom:1px solid #ccc;
-            ">
-                <h3>#${index + 1}</h3>
-                <img src="${t.img}" style="width:50px;">
-                <p><b>${t.nome}</b> - ${t.vitorias} títulos</p>
-            </div>
-        `;
-    });
+    // percorre ranking
+    for (let i = 0; i < ranking.length; i++) {
 
-    listaHTML += `</div>`;
-
-    // 🔥 RESULTADO FINAL
+        listaHTML += '<div class="item-ranking">';
+        listaHTML += '<h3>#' + (i + 1) + '</h3>';
+        listaHTML += '<img src="' + ranking[i].img + '" class="img-ranking">';
+        listaHTML += '<p>';
+        listaHTML += '<b>' + ranking[i].nome + '</b>';
+        listaHTML += ' - ' + ranking[i].vitorias + ' títulos';
+        listaHTML += '</p>';
+        listaHTML += '</div>';
+    }
+    listaHTML += '</div>';
+    // mostra resultado
     msg.style.display = "block";
-    msg.innerHTML = `
-        <h1>Simulação de 50 anos</h1>
-
-        ${meuTimeHTML}
-
-        ${listaHTML}
-
-        <button onclick="location.reload()" style="margin-top:20px; background: black;
-        color: white;">
-            Simular novamente
-        </button>
-    `;
-
+    // HTML final
+    msg.innerHTML = "";
+    msg.innerHTML += '<h1>Simulação de 50 anos</h1>';
+    msg.innerHTML += meuTimeHTML;
+    msg.innerHTML += listaHTML;
+    msg.innerHTML += ` <button onclick="location.reload()" class="btn-reload"> Simular novamente </button> `;
 }
-
-function limparSessao() {
-    sessionStorage.clear();
-    window.location = "../index.html";
-}
-
 cargo_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
 carregarTimes();
 </script>

@@ -5,9 +5,10 @@ body{
 }
 
 .main-login{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: calc(100vh - 90px);
     display: flex;
+    margin-top: 90px;
 }
 
 .left-login{
@@ -41,11 +42,14 @@ body{
 
 
 .card-login{
-    width: 60%;
+    width: 70%;
     padding: 30px;
+    box-sizing: border-box;
+
     background: #1a1a1a;
     border-radius: 15px;
     box-shadow: 0px 10px 30px #000;
+
     display: flex;
     flex-direction: column;
     align-items: center;

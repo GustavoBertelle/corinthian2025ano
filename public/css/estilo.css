@@ -141,6 +141,7 @@ body {
   display: flex;
   font-size: 15px;
   border-top: 2px solid var(--border);
+  
 }
 
 .footer .container {
