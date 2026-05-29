@@ -1,5 +1,5 @@
 Link da documentação
-https://bandteccom-my.sharepoint.com/:w:/r/personal/gustavo_borges_sptech_school/_layouts/15/Doc.aspx?sourcedoc=%7B5D09E89F-859B-4A1D-A17C-B95DBDEFA327%7D&file=Documenta%C3%A7%C3%A3o%20Projeto%20Individual.docx&action=default&mobileredirect=true&wdOrigin=SEARCHENGINE.GOOGLE%2CAPPHOME-WEB.UNAUTH%2CAPPHOME-WEB.SHELL.SIGNIN%2CAPPHOME-WEB.FILEBROWSER.RECENT&wdPreviousSession=3ae206f7-793a-40f4-8220-329e4422f458&wdPreviousSessionSrc=AppHomeWeb&ct=1780060812263
+https://bandteccom-my.sharepoint.com/:w:/r/personal/gustavo_borges_sptech_school/_layouts/15/Doc.aspx?sourcedoc=%7B5D09E89F-859B-4A1D-A17C-B95DBDEFA327%7D&file=Documenta%C3%A7%C3%A3o%20Projeto%20Individual.docx&action=default&mobileredirect=true&wdOrigin=SEARCHENGINE.GOOGLE%2CAPPHOME-WEB.UNAUTH%2CAPPHOME-WEB.SHELL.SIGNIN%2CAPPHOME-WEB.FILEBROWSER.RECENT&wdPreviousSession=3ae206f7-793a-40f4-8220-329e4422f458&wdPreviousSessionSrc=AppHomeWeb&ct=1780060812263<br>
 Link do Trello
 https://trello.com/b/DMiAWm0r/organizacao-do-trabalho-individual
 
